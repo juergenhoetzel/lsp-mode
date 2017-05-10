@@ -108,7 +108,7 @@ for a new workspace."
 initialized. When set this turns off use of
 `lsp-project-blacklist'"
   :type '(repeat directory)
-  :group 'lsp-mode)
+  :group 'lsp-moeldde)
 
 ;;;###autoload
 (defcustom lsp-enable-eldoc t
@@ -279,8 +279,7 @@ interface TextDocumentItem {
     (run-hooks lsp-after-initialize-hook)
     ;; Version 3.0 now sends an "initialized" notification to allow registration
     ;; of server capabilities
-    (lsp--send-notification (lsp--make-notification "initialized" nil))))
-
+    (lsp--send-notification (lsp--make-notification "initialized" '(:dummy 1)))))
 (defun lsp--shutdown-cur-workspace ()
   "Shut down the language server process for lsp--cur-workspace"
   (lsp--send-request (lsp--make-request "shutdown" (make-hash-table)))
@@ -430,7 +429,7 @@ disappearing, unset all the variables related to it."
           (gethash "capabilities" response))
         ;; Version 3.0 now sends an "initialized" notification to allow registration
         ;; of server capabilities
-        (lsp--send-notification (lsp--make-notification "initialized" nil))
+        (lsp--send-notification (lsp--make-notification "initialized" '(:dummy 1)))
         (run-hooks lsp-after-initialize-hook))
       (lsp--text-document-did-open))))
 
